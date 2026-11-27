@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { ArrowRight, ExternalLink, MapPin, Play } from 'lucide-react';
 import { FACEBOOK_VIDEOS, HOBBY_PILLARS, STORE_INFO } from '../data/mockData';
 
@@ -19,7 +19,7 @@ export function IntroSection({ onNavigate }) {
       {/* Hero Section */}
       <section className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
         <div className="min-w-0 space-y-5 lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
+          <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">
             <MapPin className="h-3.5 w-3.5" />
             <span>18 Ilir Palembang · 100% Direkomendasikan</span>
           </div>
@@ -38,7 +38,7 @@ export function IntroSection({ onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate('gacha')}
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-orange-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2"
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-red-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
             >
               <span>Coba Blind Box</span>
               <ArrowRight className="h-4 w-4" />
@@ -46,7 +46,7 @@ export function IntroSection({ onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate('radar')}
-              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-800 transition-colors duration-150 hover:border-zinc-400 hover:bg-zinc-50 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-800 transition-colors duration-150 hover:border-zinc-400 hover:bg-zinc-50 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
             >
               <span>Denah &amp; Jadwal Pameran</span>
             </button>
@@ -65,7 +65,7 @@ export function IntroSection({ onNavigate }) {
               <span className="truncate font-semibold text-zinc-800">
                 Card Game · Board Game · Model Kit
               </span>
-              <span className="shrink-0 font-mono font-semibold text-orange-600">PALEMBANG</span>
+              <span className="shrink-0 font-mono font-semibold text-red-600">PALEMBANG</span>
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@ export function IntroSection({ onNavigate }) {
               className="flex min-w-0 flex-col justify-between gap-4 rounded-xl border border-zinc-200 bg-white p-5"
             >
               <div className="space-y-2">
-                <span className="inline-block font-mono text-xs font-semibold text-orange-600">
+                <span className="inline-block font-mono text-xs font-semibold text-red-600">
                   {pillar.metric}
                 </span>
                 <h3 className="text-base font-bold text-zinc-950">{pillar.title}</h3>
@@ -96,7 +96,7 @@ export function IntroSection({ onNavigate }) {
               <button
                 type="button"
                 onClick={() => onNavigate('catalog', pillar.slug)}
-                className="inline-flex min-h-[44px] items-center gap-1.5 self-start text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:text-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+                className="inline-flex min-h-[44px] items-center gap-1.5 self-start text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:text-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
               >
                 <span>Lihat Katalog</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -130,7 +130,7 @@ export function IntroSection({ onNavigate }) {
                     type="button"
                     onClick={() => setShowEmbed(true)}
                     aria-label={`Putar video ${activeVideo.title}`}
-                    className="inline-flex min-h-[52px] items-center gap-2.5 rounded-full bg-orange-600 px-6 py-3 text-sm font-bold text-white transition-colors duration-150 hover:bg-orange-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="inline-flex min-h-[52px] items-center gap-2.5 rounded-full bg-red-600 px-6 py-3 text-sm font-bold text-white transition-colors duration-150 hover:bg-red-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                   >
                     <Play className="h-4 w-4 fill-current" />
                     <span>Putar Video Facebook</span>
@@ -150,7 +150,7 @@ export function IntroSection({ onNavigate }) {
 
           <div className="flex flex-col justify-between gap-6 p-6 lg:col-span-5">
             <div className="space-y-3">
-              <span className="inline-block font-mono text-xs font-semibold uppercase tracking-wider text-orange-600">
+              <span className="inline-block font-mono text-xs font-semibold uppercase tracking-wider text-red-600">
                 Video Asli Facebook · @TheRickiest
               </span>
               <h2 className="text-xl font-bold text-zinc-950">{activeVideo.title}</h2>
@@ -159,7 +159,7 @@ export function IntroSection({ onNavigate }) {
                 href={activeVideo.facebookUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-[40px] items-center gap-1.5 text-xs font-semibold text-orange-700 hover:text-orange-800"
+                className="inline-flex min-h-[40px] items-center gap-1.5 text-xs font-semibold text-red-700 hover:text-red-800"
               >
                 <span>Buka langsung di Facebook</span>
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -178,7 +178,7 @@ export function IntroSection({ onNavigate }) {
                       onClick={() => handleSelectVideo(vid.id)}
                       className={`flex min-h-[44px] items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition-colors duration-150 ${
                         isCurrent
-                          ? 'border-orange-300 bg-orange-50 text-orange-700'
+                          ? 'border-red-300 bg-red-50 text-red-700'
                           : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300 hover:text-zinc-950'
                       }`}
                     >

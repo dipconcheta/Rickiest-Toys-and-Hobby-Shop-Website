@@ -1,4 +1,4 @@
-import { Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
+﻿import { Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
 import { STORE_INFO } from '../data/mockData';
 import {
   FacebookLogo,
@@ -30,21 +30,21 @@ export function StoreContactFooter() {
 
             <div className="space-y-2.5 text-sm text-zinc-600">
               <div className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
                 <span>{STORE_INFO.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Clock className="h-4 w-4 shrink-0 text-orange-600" />
+                <Clock className="h-4 w-4 shrink-0 text-red-600" />
                 <span className="text-xs">{STORE_INFO.hours}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone className="h-4 w-4 shrink-0 text-orange-600" />
+                <Phone className="h-4 w-4 shrink-0 text-red-600" />
                 <span className="font-mono text-xs font-semibold tabular-nums text-zinc-900">
                   Toko: {STORE_INFO.whatsappDisplay} · Event: {STORE_INFO.eventCpDisplay}
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="h-4 w-4 shrink-0 text-orange-600" />
+                <Mail className="h-4 w-4 shrink-0 text-red-600" />
                 <span className="font-mono text-xs text-zinc-700">{STORE_INFO.email}</span>
               </div>
             </div>
@@ -53,7 +53,7 @@ export function StoreContactFooter() {
               href={STORE_INFO.storeMapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-[44px] items-center gap-1.5 text-xs font-semibold text-orange-700 hover:text-orange-800"
+              className="inline-flex min-h-[44px] items-center gap-1.5 text-xs font-semibold text-red-700 hover:text-red-800"
             >
               <span>Buka Lokasi Toko di Google Maps</span>
               <ExternalLink className="h-3.5 w-3.5" />
@@ -108,7 +108,7 @@ export function StoreContactFooter() {
                 href={STORE_INFO.shopeeUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 transition-colors duration-150 hover:border-orange-400 hover:bg-orange-50/40"
+                className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 transition-colors duration-150 hover:border-red-400 hover:bg-red-50/40"
               >
                 <div className="flex min-w-0 items-center gap-3">
                   <ShopeeLogo className="h-8 w-8 shrink-0" />

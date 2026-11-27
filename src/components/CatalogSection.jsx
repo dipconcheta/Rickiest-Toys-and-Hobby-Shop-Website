@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+﻿import { useMemo, useState } from 'react';
 import { Search, Tag } from 'lucide-react';
 import { PRODUCTS, STORE_INFO } from '../data/mockData';
 import { WhatsAppLogo } from './BrandLogos';
@@ -47,7 +47,7 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
         <button
           type="button"
           onClick={onCopyVoucher}
-          className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-orange-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+          className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-red-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
         >
           <Tag className="h-4 w-4" />
           <span>Salin Voucher Pameran</span>
@@ -66,9 +66,9 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
                 onClick={() => {
                   setSelectedCategory(cat.id);
                 }}
-                className={`min-h-[44px] rounded-lg border px-3.5 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
+                className={`min-h-[44px] rounded-lg border px-3.5 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
                   isActive
-                    ? 'border-orange-300 bg-orange-50 text-orange-700'
+                    ? 'border-red-300 bg-red-50 text-red-700'
                     : 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-950'
                 }`}
               >
@@ -86,7 +86,7 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari Blokees, Gundam, Pokémon..."
             aria-label="Cari produk katalog"
-            className="min-h-[44px] w-full rounded-lg border border-zinc-200 bg-white pl-9 pr-3 text-sm text-zinc-950 placeholder:text-zinc-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+            className="min-h-[44px] w-full rounded-lg border border-zinc-200 bg-white pl-9 pr-3 text-sm text-zinc-950 placeholder:text-zinc-400 focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
           />
         </div>
       </div>
@@ -106,7 +106,7 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
               setSelectedCategory('all');
               setSearchQuery('');
             }}
-            className="mt-1 inline-flex min-h-[44px] items-center rounded-lg border border-zinc-300 bg-white px-4 text-xs font-semibold text-zinc-800 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+            className="mt-1 inline-flex min-h-[44px] items-center rounded-lg border border-zinc-300 bg-white px-4 text-xs font-semibold text-zinc-800 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
           >
             Reset Filter
           </button>
@@ -132,7 +132,7 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
                     <span className="rounded border border-zinc-200 bg-zinc-100 px-2 py-0.5 font-mono text-[11px] font-semibold text-zinc-700">
                       {product.badge}
                     </span>
-                    <span className="font-mono text-sm font-bold tabular-nums text-orange-600">
+                    <span className="font-mono text-sm font-bold tabular-nums text-red-600">
                       {product.priceFormatted}
                     </span>
                   </div>
@@ -149,7 +149,7 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
                   href={buildWhatsappUrl(product.name)}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+                  className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
                 >
                   <WhatsAppLogo className="h-4 w-4" />
                   <span>Beli via WhatsApp</span>

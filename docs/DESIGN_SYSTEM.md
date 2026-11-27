@@ -1,4 +1,4 @@
-# Design System Specification
+﻿# Design System Specification
 ## Project: Rickiest Toys & Hobby Shop Website
 
 This document establishes the UI design standards, token architecture, and UX constraints for the **Rickiest Toys & Hobby** web application. It strictly adheres to the global rules defined in `UI_DESIGN_SYSTEM.md` (Linear, Stripe, and Apple HIG inspired standards).
@@ -39,9 +39,9 @@ This document establishes the UI design standards, token architecture, and UX co
   * Secondary Text: `#52525B` (Zinc 600)
   * Muted / Meta Text: `#71717A` (Zinc 500)
 * **10% Brand Accent (Single Accent Rule):**
-  * Brand Primary: `#EA580C` (Orange 600 — bright, energetic toy & hobby retail accent, WCAG AA compliant with white text)
-  * Brand Hover / Active: `#C2410C` (Orange 700)
-  * Brand Subtle Surface: `#FFF7ED` (Orange 50) with border `#FDBA74` (Orange 300)
+  * Brand Primary: `#DC2626` (Red 600 — matching Rickiest Toys' crimson emblem, WCAG AA compliant with white text)
+  * Brand Hover / Active: `#B91C1C` (Red 700)
+  * Brand Subtle Surface: `#FEF2F2` (Red 50) with border `#FCA5A5` (Red 300)
 * **Official Marketplace & Social Brand Marks:**
   * WhatsApp `#25D366`, Tokopedia `#03AC0E`, Shopee `#EE4D2D`, Facebook `#1877F2` (used strictly inside their official logo marks).
 
@@ -87,5 +87,5 @@ Every interactive button, toggle, and pin must support:
 1. **Default State**: Clean 1px border, high contrast label.
 2. **Hover State**: Subtle surface highlight (`150ms ease-out`), no sudden scaling.
 3. **Active / Pressed State**: Slight scale down (`scale-[0.98]`).
-4. **Focus-Visible State**: Standard accessible focus ring (`ring-2 ring-amber-500/50 ring-offset-2 ring-offset-slate-950`).
+4. **Focus-Visible State**: Standard accessible focus ring (`ring-2 ring-red-500/50 ring-offset-2 ring-offset-slate-950`).
 5. **Loading / Empty States**: Clean skeleton placeholder matching card dimensions without layout shifts.

@@ -1,4 +1,4 @@
-import { RickiestLogo } from './BrandLogos';
+﻿import { RickiestLogo } from './BrandLogos';
 
 export function Header({ tabs, activeTab, onTabChange }) {
   return (
@@ -8,7 +8,7 @@ export function Header({ tabs, activeTab, onTabChange }) {
         <button
           type="button"
           onClick={() => onTabChange('intro')}
-          className="flex min-h-[44px] min-w-0 cursor-pointer items-center gap-3 rounded-lg text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+          className="flex min-h-[44px] min-w-0 cursor-pointer items-center gap-3 rounded-lg text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
         >
           <RickiestLogo className="h-9 w-9" />
           <div className="min-w-0">
@@ -33,9 +33,9 @@ export function Header({ tabs, activeTab, onTabChange }) {
                 key={tab.id}
                 type="button"
                 onClick={() => onTabChange(tab.id)}
-                className={`min-h-[44px] cursor-pointer rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
+                className={`min-h-[44px] cursor-pointer rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
                   isActive
-                    ? 'bg-orange-50 text-orange-700 ring-1 ring-inset ring-orange-200'
+                    ? 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-200'
                     : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950'
                 }`}
               >
@@ -48,7 +48,7 @@ export function Header({ tabs, activeTab, onTabChange }) {
         {/* Quick Contact CTA on Desktop */}
         <a
           href="#kontak-toko"
-          className="hidden min-h-[44px] shrink-0 cursor-pointer items-center rounded-lg border border-zinc-300 bg-white px-3.5 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-orange-400 hover:text-orange-700 sm:inline-flex"
+          className="hidden min-h-[44px] shrink-0 cursor-pointer items-center rounded-lg border border-zinc-300 bg-white px-3.5 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-red-400 hover:text-red-700 sm:inline-flex"
         >
           Hubungi Toko
         </a>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 
 /** Official Shopee Brand Icon (#EE4D2D) */
 export function ShopeeLogo({ className = 'h-5 w-5' }) {
@@ -103,7 +103,7 @@ export function RickiestLogo({ className = 'h-10 w-10' }) {
 
   return (
     <div
-      className={`${className} flex shrink-0 items-center justify-center rounded-lg bg-orange-600 font-extrabold tracking-tight text-white`}
+      className={`${className} flex shrink-0 items-center justify-center rounded-lg bg-red-600 font-extrabold tracking-tight text-white`}
       aria-label="Rickiest Toys & Hobby"
     >
       <span className="text-sm">RT</span>

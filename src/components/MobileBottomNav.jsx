@@ -1,4 +1,4 @@
-export function MobileBottomNav({ tabs, activeTab, onTabChange }) {
+﻿export function MobileBottomNav({ tabs, activeTab, onTabChange }) {
   return (
     <nav
       aria-label="Navigasi seluler"
@@ -13,8 +13,8 @@ export function MobileBottomNav({ tabs, activeTab, onTabChange }) {
               key={tab.id}
               type="button"
               onClick={() => onTabChange(tab.id)}
-              className={`flex min-h-[48px] flex-col items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[11px] font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
-                isActive ? 'bg-orange-50 text-orange-700' : 'text-zinc-500 hover:text-zinc-900'
+              className={`flex min-h-[48px] flex-col items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[11px] font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
+                isActive ? 'bg-red-50 text-red-700' : 'text-zinc-500 hover:text-zinc-900'
               }`}
             >
               <Icon className="h-4 w-4" />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Gift, Home, MapPin, ShoppingBag } from 'lucide-react';
 import { Header } from './components/Header';
 import { MobileBottomNav } from './components/MobileBottomNav';
@@ -64,7 +64,7 @@ export default function App() {
         <div
           role="status"
           aria-live="polite"
-          className="fixed bottom-20 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-lg border border-orange-300 bg-zinc-950 px-4 py-3 text-center text-xs font-medium text-white md:bottom-6"
+          className="fixed bottom-20 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-lg border border-red-300 bg-zinc-950 px-4 py-3 text-center text-xs font-medium text-white md:bottom-6"
         >
           {toastMessage}
         </div>
