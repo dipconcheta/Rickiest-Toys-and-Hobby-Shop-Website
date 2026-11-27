@@ -1,0 +1,91 @@
+import { useState } from 'react';
+import { Gift, Home, MapPin, ShoppingBag } from 'lucide-react';
+import { Header } from './components/Header';
+import { MobileBottomNav } from './components/MobileBottomNav';
+import { IntroSection } from './components/IntroSection';
+import { GachaSection } from './components/GachaSection';
+import { EventRadarSection } from './components/EventRadarSection';
+import { CatalogSection } from './components/CatalogSection';
+import { STORE_INFO } from './data/mockData';
+import { sfx } from './utils/sfx';
+
+const TABS = [
+  { id: 'intro', label: 'Beranda', shortLabel: 'Beranda', icon: Home },
+  { id: 'gacha', label: 'Blind Box', shortLabel: 'Gacha', icon: Gift },
+  { id: 'radar', label: 'Pameran Mall', shortLabel: 'Pameran', icon: MapPin },
+  { id: 'catalog', label: 'Katalog', shortLabel: 'Katalog', icon: ShoppingBag },
+];
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('intro');
+  const [catalogCategory, setCatalogCategory] = useState('all');
+  const [sfxEnabled, setSfxEnabled] = useState(true);
+  const [toastMessage, setToastMessage] = useState('');
+
+  const handleTabChange = (tabId, categorySlug) => {
+    sfx.playClick();
+    if (categorySlug) {
+      setCatalogCategory(categorySlug);
+    }
+    setActiveTab(tabId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleToggleSfx = () => {
+    const next = !sfxEnabled;
+    sfx.setEnabled(next);
+    setSfxEnabled(next);
+    if (next) sfx.playClick();
+  };
+
+  const handleCopyVoucher = () => {
+    sfx.playClick();
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(STORE_INFO.voucherCode).catch(() => {});
+    }
+    setToastMessage(`Kode voucher ${STORE_INFO.voucherCode} disalin untuk pameran Palembang Icon.`);
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#020617] text-slate-50">
+      <Header
+        tabs={TABS}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        sfxEnabled={sfxEnabled}
+        onToggleSfx={handleToggleSfx}
+      />
+
+      <main className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6 sm:pt-10 md:pb-16 lg:px-8">
+        {activeTab === 'intro' && <IntroSection onNavigate={handleTabChange} />}
+        {activeTab === 'gacha' && (
+          <GachaSection onNavigateCatalog={() => handleTabChange('catalog', 'blind-box')} />
+        )}
+        {activeTab === 'radar' && (
+          <EventRadarSection onNavigateGacha={() => handleTabChange('gacha')} />
+        )}
+        {activeTab === 'catalog' && (
+          <CatalogSection
+            key={catalogCategory}
+            initialCategory={catalogCategory}
+            onCopyVoucher={handleCopyVoucher}
+          />
+        )}
+      </main>
+
+      <MobileBottomNav tabs={TABS} activeTab={activeTab} onTabChange={handleTabChange} />
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-20 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-lg border border-amber-500/40 bg-slate-900 px-4 py-3 text-center text-xs font-medium text-slate-100 md:bottom-6"
+        >
+          {toastMessage}
+        </div>
+      )}
+    </div>
+  );
+}

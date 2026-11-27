@@ -8,6 +8,9 @@ dist/
 build/
 *.tmp
 
+# Netlify local state
+.netlify/
+
 # Environment & Logs
 .env
 .env.local
