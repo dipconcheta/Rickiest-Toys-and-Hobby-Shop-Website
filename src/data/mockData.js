@@ -93,7 +93,7 @@ export const MYSTERY_POOL = [
 
 export const ACTIVE_EVENT = {
   id: 'evt-plg-icon-2026',
-  status: 'Pameran Aktif',
+  status: 'Sedang Berjalan',
   mallName: 'Palembang Icon Mall',
   floor: 'Lantai Ground (GF)',
   venueAtrium: 'Main Atrium · Area Pameran Utama',
@@ -101,61 +101,120 @@ export const ACTIVE_EVENT = {
   city: 'Palembang',
   dateRange: '28 Nov – 02 Des 2026',
   openingHours: '10:00 – 22:00 WIB',
-  landmarks: [
-    {
-      id: 'booth',
-      code: 'BOOTH B-04',
-      title: 'Booth Rickiest Toys & Hobby',
-      shortLabel: 'Booth Rickiest (B-04)',
-      distance: 'Titik Lokasi Utama',
-      description:
-        'Berada tepat di area tengah Main Atrium (Lantai Ground), sejajar dengan panggung utama pameran hobi Palembang Icon.',
-      directions: [
-        'Cari banner oranye "Rickiest Toys & Hobby" di sisi kanan Main Atrium.',
-        'Tunjukkan kode RICKIESTICON10 kepada staf booth untuk diskon pameran.',
-      ],
-    },
-    {
-      id: 'atrium',
-      code: 'AREA PAMERAN',
-      title: 'Main Atrium Palembang Icon',
-      shortLabel: 'Area Pameran Atrium',
-      distance: 'Lantai Ground Tengah',
-      description:
-        'Area pameran utama yang menampung tenant hobi, diorama, dan komunitas mainan Palembang selama periode 28 Nov – 02 Des 2026.',
-      directions: [
-        'Area terbuka seluas 400 m² tepat di bawah kubah tengah Palembang Icon.',
-        'Booth Rickiest Toys (B-04) menempati sudut kanan depan dekat jalur utama.',
-      ],
-    },
+  routes: [
     {
       id: 'entrance',
-      code: 'PINTU UTAMA',
-      title: 'Lobby Selatan (Main Entrance)',
-      shortLabel: 'Pintu Masuk Utama',
-      distance: '± 35 meter ke Booth',
+      code: 'LOBBY SELATAN',
+      title: 'Pintu Masuk Utama (Jl. POM IX)',
+      shortLabel: 'Lobby Selatan',
+      distance: '35 m',
+      walkTime: '± 45 detik',
+      svgPath: 'M 330 338 L 330 250 L 395 250 L 395 198',
+      startPoint: { x: 330, y: 338 },
       description:
-        'Akses masuk paling cepat dari drop-off kendaraan utama Jl. POM IX Palembang.',
+        'Akses tercepat dari area drop-off utama Palembang Icon (Jl. POM IX). Berjalan lurus ke arah Main Atrium.',
       directions: [
-        'Masuk melalui pintu Lobby Selatan lalu berjalan lurus 35 meter melewati koridor tengah.',
-        'Begitu memasuki Main Atrium, Booth Rickiest Toys (B-04) berada di sisi kanan Anda.',
+        'Masuk dari Lobby Selatan melewati area informasi dan koridor utama.',
+        'Lurus ± 25 meter hingga mencapai Main Atrium, lalu serong kanan ke Booth B-04 Rickiest Toys.',
       ],
     },
     {
       id: 'escalator',
-      code: 'ESKALATOR',
+      code: 'ESKALATOR TENGAH',
       title: 'Eskalator Tengah & Lift Pengunjung',
       shortLabel: 'Eskalator & Lift',
-      distance: '± 12 meter ke Booth',
+      distance: '12 m',
+      walkTime: '± 20 detik',
+      svgPath: 'M 470 72 L 470 125 L 395 125 L 395 162',
+      startPoint: { x: 470, y: 72 },
       description:
-        'Akses langsung dari lantai parkir atas (P1–P3) dan lantai 1–3 Palembang Icon.',
+        'Akses langsung bagi pengunjung yang turun dari lantai parkir P1–P3 atau Lantai 1–3.',
       directions: [
-        'Turun ke Lantai Ground (GF) menggunakan eskalator tengah.',
-        'Booth Rickiest Toys (B-04) langsung terlihat 12 meter di depan area turun eskalator.',
+        'Turun ke Lantai Ground (GF) melalui eskalator tengah di sisi utara Atrium.',
+        'Booth Rickiest Toys (B-04) langsung terlihat 12 meter tepat di depan area turun eskalator.',
+      ],
+    },
+    {
+      id: 'east-parking',
+      code: 'PARKIR TIMUR',
+      title: 'Koridor Parkir Timur & Food Walk',
+      shortLabel: 'Akses Timur',
+      distance: '48 m',
+      walkTime: '± 1 menit',
+      svgPath: 'M 600 185 L 495 185 L 435 185',
+      startPoint: { x: 600, y: 185 },
+      description:
+        'Jalur pengunjung dari pintu akses timur dan area kafe/restoran sisi kanan mall.',
+      directions: [
+        'Masuk melalui koridor timur Lantai Ground lurus ke arah tengah mall.',
+        'Memasuki sisi timur Main Atrium, Booth Rickiest Toys (B-04) berada tepat di tepi kanan pameran.',
       ],
     },
   ],
 };
+
+export const EXHIBITION_EVENTS = [
+  {
+    id: 'evt-ongoing-01',
+    status: 'ongoing',
+    statusLabel: 'Sedang Berjalan',
+    title: 'Palembang Hobby & Collectibles Fest 2026',
+    mall: 'Palembang Icon Mall · Main Atrium (GF)',
+    booth: 'Booth B-04',
+    date: '28 Nov – 02 Des 2026',
+    hours: '10:00 – 22:00 WIB',
+    highlight: 'Promo potongan 10% kode RICKIESTICON10, dinding Blind Box Blokees & display Gunpla.',
+    image: '/images/hero-showcase.jpg',
+  },
+  {
+    id: 'evt-upcoming-01',
+    status: 'upcoming',
+    statusLabel: 'Akan Datang',
+    title: 'Year-End Toys & Pop Culture Bazaar',
+    mall: 'Palembang Indah Mall (PIM) · Atrium Utama',
+    booth: 'Booth A-12 (Konfirmasi)',
+    date: '18 – 27 Des 2026',
+    hours: '10:00 – 22:00 WIB',
+    highlight: 'Peluncuran gelombang baru Blokees Transformers & paket kado akhir tahun.',
+    image: '/images/prod-blokees.jpg',
+  },
+  {
+    id: 'evt-upcoming-02',
+    status: 'upcoming',
+    statusLabel: 'Akan Datang',
+    title: 'Pokémon TCG & One Piece Palembang Cup',
+    mall: 'PTC Mall Palembang · Hall Lantai 2',
+    booth: 'Booth C-02 & Play Area',
+    date: '16 – 17 Jan 2027',
+    hours: '10:00 – 20:00 WIB',
+    highlight: 'Turnamen resmi komunitas TCG Palembang, booster pack terbaru, dan demo deck pemula.',
+    image: '/images/prod-tcg.svg',
+  },
+  {
+    id: 'evt-past-01',
+    status: 'past',
+    statusLabel: 'Selesai',
+    title: 'Palembang Japan & Hobby Matsuri',
+    mall: 'Palembang Square (PS Mall) · Atrium',
+    booth: 'Booth D-08',
+    date: '10 – 13 Okt 2026',
+    hours: '10:00 – 21:00 WIB',
+    highlight: 'Pameran model kit Gundam & Blind Box dengan lebih dari 1.200 pengunjung stan.',
+    image: '/images/prod-gunpla.jpg',
+  },
+  {
+    id: 'evt-past-02',
+    status: 'past',
+    statusLabel: 'Selesai',
+    title: 'Sumatera Collectors Expo 2026',
+    mall: 'OPI Mall Palembang · Main Hall',
+    booth: 'Booth B-01',
+    date: '22 – 25 Agu 2026',
+    hours: '10:00 – 21:00 WIB',
+    highlight: 'Showcase diorama mecha, lomba foto figur, dan gather komunitas kolektor Palembang.',
+    image: '/images/hero-showcase.jpg',
+  },
+];
 
 export const PRODUCTS = [
   {

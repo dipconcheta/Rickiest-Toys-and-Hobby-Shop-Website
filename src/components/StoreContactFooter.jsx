@@ -7,7 +7,6 @@ import {
   TokopediaLogo,
   WhatsAppLogo,
 } from './BrandLogos';
-import { sfx } from '../utils/sfx';
 
 export function StoreContactFooter() {
   const whatsappOrderUrl = `https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(
@@ -15,7 +14,7 @@ export function StoreContactFooter() {
   )}`;
 
   return (
-    <footer className="mt-16 border-t border-zinc-200 bg-white pb-24 pt-12 md:pb-12">
+    <footer id="kontak-toko" className="mt-16 border-t border-zinc-200 bg-white pb-24 pt-12 md:pb-12">
       <div className="mx-auto max-w-6xl space-y-8 px-4 sm:px-6 lg:px-8">
         {/* Prominent Contact & Order Header */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
@@ -50,7 +49,6 @@ export function StoreContactFooter() {
               href={STORE_INFO.storeMapsUrl}
               target="_blank"
               rel="noreferrer"
-              onClick={() => sfx.playClick()}
               className="inline-flex min-h-[44px] items-center gap-1.5 text-xs font-semibold text-orange-700 hover:text-orange-800"
             >
               <span>Buka Lokasi Toko di Google Maps</span>
@@ -72,7 +70,6 @@ export function StoreContactFooter() {
                 href={whatsappOrderUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => sfx.playClick()}
                 className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 transition-colors duration-150 hover:border-emerald-400 hover:bg-emerald-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
               >
                 <div className="flex min-w-0 items-center gap-3">
@@ -91,7 +88,6 @@ export function StoreContactFooter() {
                 href={STORE_INFO.tokopediaUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => sfx.playClick()}
                 className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 transition-colors duration-150 hover:border-emerald-400 hover:bg-emerald-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
               >
                 <div className="flex min-w-0 items-center gap-3">
@@ -108,7 +104,6 @@ export function StoreContactFooter() {
                 href={STORE_INFO.shopeeUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => sfx.playClick()}
                 className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 transition-colors duration-150 hover:border-orange-400 hover:bg-orange-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
               >
                 <div className="flex min-w-0 items-center gap-3">
@@ -125,7 +120,6 @@ export function StoreContactFooter() {
                 href={STORE_INFO.facebookUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => sfx.playClick()}
                 className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 transition-colors duration-150 hover:border-blue-400 hover:bg-blue-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
               >
                 <div className="flex min-w-0 items-center gap-3">

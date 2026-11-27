@@ -8,23 +8,20 @@ import { EventRadarSection } from './components/EventRadarSection';
 import { CatalogSection } from './components/CatalogSection';
 import { StoreContactFooter } from './components/StoreContactFooter';
 import { STORE_INFO } from './data/mockData';
-import { sfx } from './utils/sfx';
 
 const TABS = [
   { id: 'intro', label: 'Beranda', shortLabel: 'Beranda', icon: Home },
   { id: 'gacha', label: 'Blind Box', shortLabel: 'Gacha', icon: Gift },
-  { id: 'radar', label: 'Lokasi Pameran', shortLabel: 'Pameran', icon: MapPin },
+  { id: 'radar', label: 'Pameran', shortLabel: 'Pameran', icon: MapPin },
   { id: 'catalog', label: 'Katalog', shortLabel: 'Katalog', icon: ShoppingBag },
 ];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro');
   const [catalogCategory, setCatalogCategory] = useState('all');
-  const [sfxEnabled, setSfxEnabled] = useState(true);
   const [toastMessage, setToastMessage] = useState('');
 
   const handleTabChange = (tabId, categorySlug) => {
-    sfx.playClick();
     if (categorySlug) {
       setCatalogCategory(categorySlug);
     }
@@ -32,15 +29,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleToggleSfx = () => {
-    const next = !sfxEnabled;
-    sfx.setEnabled(next);
-    setSfxEnabled(next);
-    if (next) sfx.playClick();
-  };
-
   const handleCopyVoucher = () => {
-    sfx.playClick();
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(STORE_INFO.voucherCode).catch(() => {});
     }
@@ -50,13 +39,7 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#FAFAFA] text-zinc-950">
-      <Header
-        tabs={TABS}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-        sfxEnabled={sfxEnabled}
-        onToggleSfx={handleToggleSfx}
-      />
+      <Header tabs={TABS} activeTab={activeTab} onTabChange={handleTabChange} />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8">
         {activeTab === 'intro' && <IntroSection onNavigate={handleTabChange} />}

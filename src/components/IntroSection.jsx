@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, MapPin, Pause, Play, RotateCcw } from 'lucide-react';
 import { HOBBY_PILLARS, STORE_INFO } from '../data/mockData';
-import { sfx } from '../utils/sfx';
 
 const VIDEO_CHAPTERS = [
   {
@@ -49,7 +48,6 @@ export function IntroSection({ onNavigate }) {
     elapsed >= 30 ? VIDEO_CHAPTERS[2] : elapsed >= 15 ? VIDEO_CHAPTERS[1] : VIDEO_CHAPTERS[0];
 
   const handleTogglePlay = () => {
-    sfx.playClick();
     if (elapsed >= 45) {
       setElapsed(0);
       setIsPlaying(true);
@@ -59,7 +57,6 @@ export function IntroSection({ onNavigate }) {
   };
 
   const handleRestart = () => {
-    sfx.playClick();
     setElapsed(0);
     setIsPlaying(true);
   };
@@ -225,7 +222,6 @@ export function IntroSection({ onNavigate }) {
                       key={chap.time}
                       type="button"
                       onClick={() => {
-                        sfx.playClick();
                         setElapsed(chap.time);
                         setIsPlaying(true);
                       }}

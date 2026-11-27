@@ -52,7 +52,6 @@ export function GachaSection({ onNavigateCatalog }) {
 
   const handleReset = () => {
     clearTimers();
-    sfx.playClick();
     setPhase('idle');
     setPulledItem(null);
   };
@@ -185,7 +184,6 @@ export function GachaSection({ onNavigateCatalog }) {
         <button
           type="button"
           onClick={() => {
-            sfx.playClick();
             setShowOdds((prev) => !prev);
           }}
           aria-expanded={showOdds}

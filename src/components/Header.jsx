@@ -1,7 +1,6 @@
-import { Volume2, VolumeX } from 'lucide-react';
 import { RickiestLogo } from './BrandLogos';
 
-export function Header({ tabs, activeTab, onTabChange, sfxEnabled, onToggleSfx }) {
+export function Header({ tabs, activeTab, onTabChange }) {
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
@@ -9,7 +8,7 @@ export function Header({ tabs, activeTab, onTabChange, sfxEnabled, onToggleSfx }
         <button
           type="button"
           onClick={() => onTabChange('intro')}
-          className="flex min-h-[44px] min-w-0 items-center gap-3 rounded-lg text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+          className="flex min-h-[44px] min-w-0 cursor-pointer items-center gap-3 rounded-lg text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
         >
           <RickiestLogo className="h-9 w-9" />
           <div className="min-w-0">
@@ -34,7 +33,7 @@ export function Header({ tabs, activeTab, onTabChange, sfxEnabled, onToggleSfx }
                 key={tab.id}
                 type="button"
                 onClick={() => onTabChange(tab.id)}
-                className={`min-h-[44px] rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
+                className={`min-h-[44px] cursor-pointer rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
                   isActive
                     ? 'bg-orange-50 text-orange-700 ring-1 ring-inset ring-orange-200'
                     : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950'
@@ -46,21 +45,13 @@ export function Header({ tabs, activeTab, onTabChange, sfxEnabled, onToggleSfx }
           })}
         </nav>
 
-        {/* Audio SFX Toggle */}
-        <button
-          type="button"
-          onClick={onToggleSfx}
-          aria-pressed={sfxEnabled}
-          aria-label={sfxEnabled ? 'Matikan efek suara' : 'Aktifkan efek suara'}
-          className={`flex min-h-[44px] shrink-0 items-center gap-2 rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
-            sfxEnabled
-              ? 'border-orange-300 bg-orange-50 text-orange-700 hover:bg-orange-100'
-              : 'border-zinc-200 bg-zinc-50 text-zinc-500 hover:border-zinc-300 hover:text-zinc-800'
-          }`}
+        {/* Quick Contact CTA on Desktop */}
+        <a
+          href="#kontak-toko"
+          className="hidden min-h-[44px] shrink-0 cursor-pointer items-center rounded-lg border border-zinc-300 bg-white px-3.5 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-orange-400 hover:text-orange-700 sm:inline-flex"
         >
-          {sfxEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-          <span className="font-mono">{sfxEnabled ? 'SFX ON' : 'SFX OFF'}</span>
-        </button>
+          Hubungi Toko
+        </a>
       </div>
     </header>
   );

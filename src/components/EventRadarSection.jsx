@@ -1,21 +1,29 @@
 import { useState } from 'react';
-import { Calendar, Clock, Compass, ExternalLink, MapPin, Navigation } from 'lucide-react';
-import { ACTIVE_EVENT, STORE_INFO } from '../data/mockData';
-import { sfx } from '../utils/sfx';
+import { Calendar, Clock, ExternalLink, Footprints, MapPin, Navigation } from 'lucide-react';
+import { ACTIVE_EVENT, EXHIBITION_EVENTS, STORE_INFO } from '../data/mockData';
+
+const EVENT_FILTERS = [
+  { id: 'all', label: 'Semua Jadwal' },
+  { id: 'ongoing', label: 'Sedang Berjalan' },
+  { id: 'upcoming', label: 'Akan Datang' },
+  { id: 'past', label: 'Sebelumnya' },
+];
 
 export function EventRadarSection() {
-  const [selectedId, setSelectedId] = useState('booth');
-  const activePoint =
-    ACTIVE_EVENT.landmarks.find((item) => item.id === selectedId) || ACTIVE_EVENT.landmarks[0];
+  const [selectedRouteId, setSelectedRouteId] = useState('entrance');
+  const [eventFilter, setEventFilter] = useState('all');
 
-  const handleSelect = (id) => {
-    sfx.playClick();
-    setSelectedId(id);
-  };
+  const activeRoute =
+    ACTIVE_EVENT.routes.find((r) => r.id === selectedRouteId) || ACTIVE_EVENT.routes[0];
+
+  const filteredEvents =
+    eventFilter === 'all'
+      ? EXHIBITION_EVENTS
+      : EXHIBITION_EVENTS.filter((evt) => evt.status === eventFilter);
 
   return (
-    <div className="space-y-8">
-      {/* Event Header */}
+    <div className="space-y-12">
+      {/* Live Event Banner */}
       <section className="rounded-xl border border-zinc-200 bg-white p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="min-w-0 space-y-2">
@@ -24,11 +32,11 @@ export function EventRadarSection() {
               {ACTIVE_EVENT.status} · {ACTIVE_EVENT.boothCode}
             </span>
             <h1 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl">
-              Lokasi Pameran @ {ACTIVE_EVENT.mallName}
+              Denah Pameran @ {ACTIVE_EVENT.mallName}
             </h1>
             <p className="max-w-prose text-sm text-zinc-600">
-              Temukan titik area pameran Main Atrium dan posisi Booth Rickiest Toys ({ACTIVE_EVENT.boothCode}) di{' '}
-              {ACTIVE_EVENT.floor} Palembang Icon Mall.
+              Pilih titik masuk Anda pada denah interaktif di bawah untuk melihat simulasi rute
+              berjalan langsung menuju <strong>Booth Rickiest Toys ({ACTIVE_EVENT.boothCode})</strong> di Main Atrium.
             </p>
           </div>
 
@@ -49,149 +57,292 @@ export function EventRadarSection() {
         </div>
       </section>
 
-      {/* Interactive Mall Floor Plan + Direction Panel */}
+      {/* Complex Architectural SVG Mall Wayfinding Map */}
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        {/* Mall Floor Plan Diagram */}
-        <div className="rounded-xl border border-zinc-200 bg-white p-5 lg:col-span-7">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div className="rounded-xl border border-zinc-200 bg-white p-5 lg:col-span-8">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-sm font-bold text-zinc-950">
-                Denah Lantai Ground — Palembang Icon Mall
+                Peta Interaktif Lantai Ground (GF) — Palembang Icon
               </h2>
-              <p className="text-xs text-zinc-500">Klik titik peta untuk melihat rute menuju booth kami</p>
+              <p className="text-xs text-zinc-500">
+                Klik titik pintu masuk atau eskalator untuk menyimulasikan jalur pejalan kaki ke Booth B-04
+              </p>
             </div>
-            <span className="rounded border border-zinc-200 bg-zinc-100 px-2 py-0.5 font-mono text-[11px] font-semibold text-zinc-600">
-              LANTAI GF
-            </span>
+
+            {/* Quick Start-Point Selector */}
+            <div className="flex flex-wrap gap-1.5">
+              {ACTIVE_EVENT.routes.map((route) => {
+                const isSelected = route.id === selectedRouteId;
+                return (
+                  <button
+                    key={route.id}
+                    type="button"
+                    onClick={() => setSelectedRouteId(route.id)}
+                    className={`min-h-[36px] rounded-lg border px-2.5 text-xs font-semibold transition-colors duration-150 ${
+                      isSelected
+                        ? 'border-orange-400 bg-orange-50 text-orange-700'
+                        : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900'
+                    }`}
+                  >
+                    {route.shortLabel}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Architectural Mall Schematic */}
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:p-5">
-            <div className="grid grid-cols-12 gap-3">
-              {/* Top Row: Tenant Wing + Escalator */}
-              <div className="col-span-5 flex min-h-[56px] items-center justify-center rounded-lg border border-zinc-200 bg-white px-2 text-center text-[11px] font-medium text-zinc-400">
-                Koridor Retail Barat
-              </div>
-              <button
-                type="button"
-                onClick={() => handleSelect('escalator')}
-                className={`col-span-7 flex min-h-[56px] items-center justify-center gap-2 rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
-                  selectedId === 'escalator'
-                    ? 'border-orange-500 bg-orange-50 text-orange-700'
-                    : 'border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400'
-                }`}
+          {/* Detailed Interactive Architectural Floorplan SVG */}
+          <div className="overflow-hidden rounded-xl border border-zinc-200 bg-[#F8FAFC]">
+            <svg
+              viewBox="0 0 660 380"
+              className="h-auto w-full select-none"
+              role="img"
+              aria-label="Denah arsitektur Lantai Ground Palembang Icon dengan rute animasi menuju Booth Rickiest Toys B-04"
+            >
+              {/* Subtle architectural grid */}
+              <defs>
+                <pattern id="mallGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#E4E4E7" strokeWidth="0.7" />
+                </pattern>
+              </defs>
+              <rect width="660" height="380" fill="url(#mallGrid)" />
+
+              {/* Outer Mall Building Footprint */}
+              <rect
+                x="24"
+                y="24"
+                width="612"
+                height="332"
+                rx="16"
+                fill="#FFFFFF"
+                stroke="#CBD5E1"
+                strokeWidth="2"
+              />
+
+              {/* Retail Anchor Blocks (West & North & East Corridors) */}
+              <rect x="40" y="40" width="135" height="92" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
+              <text x="107" y="84" textAnchor="middle" fill="#71717A" fontSize="10" fontWeight="600">
+                ANCHOR TENANT
+              </text>
+              <text x="107" y="99" textAnchor="middle" fill="#A1A1AA" fontSize="9">
+                Sayap Barat GF
+              </text>
+
+              <rect x="40" y="148" width="135" height="90" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
+              <text x="107" y="196" textAnchor="middle" fill="#71717A" fontSize="10" fontWeight="600">
+                RETAIL FASHION
+              </text>
+
+              <rect x="40" y="254" width="135" height="86" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
+              <text x="107" y="300" textAnchor="middle" fill="#71717A" fontSize="10" fontWeight="600">
+                CAFÉ &amp; LOUNGE
+              </text>
+
+              {/* North Retail */}
+              <rect x="195" y="40" width="180" height="58" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
+              <text x="285" y="73" textAnchor="middle" fill="#71717A" fontSize="10" fontWeight="600">
+                KORIDOR UTARA · INFO DESK
+              </text>
+
+              {/* East Retail */}
+              <rect x="505" y="40" width="115" height="108" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
+              <text x="562" y="98" textAnchor="middle" fill="#71717A" fontSize="10" fontWeight="600">
+                FOOD WALK
+              </text>
+
+              <rect x="505" y="222" width="115" height="118" rx="8" fill="#F4F4F5" stroke="#E4E4E7" />
+              <text x="562" y="284" textAnchor="middle" fill="#71717A" fontSize="10" fontWeight="600">
+                RETAIL TIMUR
+              </text>
+
+              {/* Main Atrium Dome / Exhibition Zone */}
+              <rect
+                x="202"
+                y="118"
+                width="278"
+                height="136"
+                rx="14"
+                fill="#FFFBEB"
+                stroke="#FDBA74"
+                strokeWidth="1.5"
+                strokeDasharray="6 4"
+              />
+              <text
+                x="216"
+                y="136"
+                fill="#C2410C"
+                fontSize="9.5"
+                fontWeight="700"
+                letterSpacing="1"
               >
-                <Compass className="h-3.5 w-3.5 shrink-0" />
-                <span>Eskalator Tengah &amp; Lift</span>
-              </button>
+                AREA PAMERAN · MAIN ATRIUM (400 m²)
+              </text>
 
-              {/* Center Row: Main Atrium Exhibition Area with Rickiest Booth Pin */}
-              <div className="col-span-12 rounded-xl border-2 border-dashed border-zinc-300 bg-white p-4">
-                <div className="mb-3 flex items-center justify-between gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleSelect('atrium')}
-                    className={`rounded-md px-2 py-1 text-left font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
-                      selectedId === 'atrium'
-                        ? 'bg-orange-50 text-orange-700'
-                        : 'text-zinc-500 hover:text-zinc-900'
-                    }`}
-                  >
-                    Area Pameran · Main Atrium
-                  </button>
-                  <span className="font-mono text-[11px] text-zinc-400">400 m²</span>
-                </div>
+              {/* Exhibition Main Stage */}
+              <rect x="218" y="150" width="102" height="86" rx="8" fill="#FFFFFF" stroke="#E4E4E7" />
+              <text x="269" y="189" textAnchor="middle" fill="#52525B" fontSize="10" fontWeight="700">
+                PANGGUNG
+              </text>
+              <text x="269" y="204" textAnchor="middle" fill="#71717A" fontSize="9">
+                Event Hobi
+              </text>
 
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-12">
-                  {/* Panggung / Exhibition Area */}
-                  <button
-                    type="button"
-                    onClick={() => handleSelect('atrium')}
-                    className={`flex min-h-[88px] flex-col items-center justify-center rounded-lg border p-3 text-center transition-colors duration-150 sm:col-span-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
-                      selectedId === 'atrium'
-                        ? 'border-orange-500 bg-orange-50 text-orange-800'
-                        : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-zinc-300'
-                    }`}
-                  >
-                    <span className="text-xs font-bold">Panggung &amp; Area Pameran</span>
-                    <span className="mt-1 text-[11px] text-zinc-500">Event Hobi &amp; Komunitas</span>
-                  </button>
+              {/* Other Exhibition Booths (Context) */}
+              <rect x="334" y="210" width="52" height="26" rx="5" fill="#F4F4F5" stroke="#D4D4D8" />
+              <text x="360" y="227" textAnchor="middle" fill="#71717A" fontSize="8.5" fontWeight="600">
+                B-02
+              </text>
 
-                  {/* Rickiest Toys Booth Highlight Pin */}
-                  <button
-                    type="button"
-                    onClick={() => handleSelect('booth')}
-                    className={`flex min-h-[88px] flex-col items-start justify-between rounded-lg border-2 p-3.5 text-left transition-colors duration-150 sm:col-span-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
-                      selectedId === 'booth'
-                        ? 'border-orange-600 bg-orange-600 text-white'
-                        : 'border-orange-400 bg-orange-50 text-orange-950 hover:bg-orange-100'
-                    }`}
-                  >
-                    <div className="flex w-full items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold">
-                        <MapPin className="h-3.5 w-3.5" />
-                        BOOTH B-04
-                      </span>
-                      <span
-                        className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${
-                          selectedId === 'booth'
-                            ? 'bg-white/20 text-white'
-                            : 'bg-orange-200 text-orange-800'
-                        }`}
-                      >
-                        LOKASI KAMI
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-extrabold">Rickiest Toys &amp; Hobby</p>
-                      <p
-                        className={`text-[11px] ${
-                          selectedId === 'booth' ? 'text-orange-100' : 'text-orange-700'
-                        }`}
-                      >
-                        Sisi Kanan Main Atrium
-                      </p>
-                    </div>
-                  </button>
-                </div>
-              </div>
+              <rect x="404" y="210" width="60" height="26" rx="5" fill="#F4F4F5" stroke="#D4D4D8" />
+              <text x="434" y="227" textAnchor="middle" fill="#71717A" fontSize="8.5" fontWeight="600">
+                B-06
+              </text>
 
-              {/* Bottom Row: Main Entrance */}
-              <button
-                type="button"
-                onClick={() => handleSelect('entrance')}
-                className={`col-span-12 flex min-h-[52px] items-center justify-center gap-2 rounded-lg border px-4 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
-                  selectedId === 'entrance'
-                    ? 'border-orange-500 bg-orange-50 text-orange-700'
-                    : 'border-zinc-300 bg-white text-zinc-700 hover:border-zinc-400'
-                }`}
+              {/* RICKIEST TOYS BOOTH B-04 (Destination Highlight with Live Beacon) */}
+              <g>
+                <circle
+                  cx="395"
+                  cy="178"
+                  r="18"
+                  fill="#EA580C"
+                  opacity="0.22"
+                  className="animate-beacon-ring"
+                />
+                <rect
+                  x="334"
+                  y="150"
+                  width="130"
+                  height="52"
+                  rx="8"
+                  fill="#EA580C"
+                  stroke="#9A3412"
+                  strokeWidth="1.5"
+                />
+                <text x="399" y="172" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="800">
+                  BOOTH B-04
+                </text>
+                <text x="399" y="188" textAnchor="middle" fill="#FFEDD5" fontSize="9.5" fontWeight="600">
+                  Rickiest Toys &amp; Hobby
+                </text>
+              </g>
+
+              {/* Animated Real-World Walking Route Path */}
+              <path
+                key={activeRoute.id}
+                id="activeWalkRoute"
+                d={activeRoute.svgPath}
+                fill="none"
+                stroke="#EA580C"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="animate-route-flow"
+              />
+
+              {/* Moving Pedestrian Indicator Dot along the SVG Route */}
+              <circle key={`dot-${activeRoute.id}`} r="5.5" fill="#09090B" stroke="#FFFFFF" strokeWidth="2">
+                <animateMotion dur="2.6s" repeatCount="indefinite" path={activeRoute.svgPath} />
+              </circle>
+
+              {/* Clickable Node 1: Escalator & Lift */}
+              <g
+                onClick={() => setSelectedRouteId('escalator')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && setSelectedRouteId('escalator')}
+                className="cursor-pointer"
               >
-                <Navigation className="h-3.5 w-3.5" />
-                <span>Pintu Masuk Utama · Lobby Selatan (Jl. POM IX)</span>
-              </button>
-            </div>
+                <rect
+                  x="392"
+                  y="40"
+                  width="98"
+                  height="58"
+                  rx="8"
+                  fill={selectedRouteId === 'escalator' ? '#FFF7ED' : '#FFFFFF'}
+                  stroke={selectedRouteId === 'escalator' ? '#EA580C' : '#94A3B8'}
+                  strokeWidth={selectedRouteId === 'escalator' ? '2' : '1.5'}
+                />
+                <text x="441" y="66" textAnchor="middle" fill="#09090B" fontSize="9.5" fontWeight="700">
+                  ESKALATOR
+                </text>
+                <text x="441" y="80" textAnchor="middle" fill="#52525B" fontSize="8.5">
+                  &amp; Lift Tengah
+                </text>
+              </g>
+
+              {/* Clickable Node 2: East Parking Corridor */}
+              <g
+                onClick={() => setSelectedRouteId('east-parking')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && setSelectedRouteId('east-parking')}
+                className="cursor-pointer"
+              >
+                <rect
+                  x="530"
+                  y="162"
+                  width="96"
+                  height="46"
+                  rx="8"
+                  fill={selectedRouteId === 'east-parking' ? '#FFF7ED' : '#FFFFFF'}
+                  stroke={selectedRouteId === 'east-parking' ? '#EA580C' : '#94A3B8'}
+                  strokeWidth={selectedRouteId === 'east-parking' ? '2' : '1.5'}
+                />
+                <text x="578" y="182" textAnchor="middle" fill="#09090B" fontSize="9" fontWeight="700">
+                  AKSES TIMUR
+                </text>
+                <text x="578" y="196" textAnchor="middle" fill="#52525B" fontSize="8.5">
+                  Parkir Timur
+                </text>
+              </g>
+
+              {/* Clickable Node 3: Main Entrance South Lobby */}
+              <g
+                onClick={() => setSelectedRouteId('entrance')}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && setSelectedRouteId('entrance')}
+                className="cursor-pointer"
+              >
+                <rect
+                  x="232"
+                  y="318"
+                  width="196"
+                  height="38"
+                  rx="8"
+                  fill={selectedRouteId === 'entrance' ? '#FFF7ED' : '#FFFFFF'}
+                  stroke={selectedRouteId === 'entrance' ? '#EA580C' : '#94A3B8'}
+                  strokeWidth={selectedRouteId === 'entrance' ? '2' : '1.5'}
+                />
+                <text x="330" y="341" textAnchor="middle" fill="#09090B" fontSize="10" fontWeight="700">
+                  PINTU UTAMA · LOBBY SELATAN (JL. POM IX)
+                </text>
+              </g>
+            </svg>
           </div>
         </div>
 
-        {/* Selected Landmark Detail & Directions */}
-        <div className="flex flex-col justify-between gap-6 rounded-xl border border-zinc-200 bg-white p-6 lg:col-span-5">
+        {/* Route Details & Directions Card */}
+        <div className="flex flex-col justify-between gap-6 rounded-xl border border-zinc-200 bg-white p-6 lg:col-span-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-2">
-              <span className="font-mono text-xs font-bold text-orange-600">{activePoint.code}</span>
-              <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 font-mono text-[11px] font-medium text-zinc-700">
-                {activePoint.distance}
+              <span className="font-mono text-xs font-bold text-orange-600">{activeRoute.code}</span>
+              <span className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 font-mono text-[11px] font-semibold tabular-nums text-zinc-700">
+                <Footprints className="h-3 w-3 text-orange-600" />
+                {activeRoute.distance} · {activeRoute.walkTime}
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <h3 className="text-lg font-bold text-zinc-950">{activePoint.title}</h3>
-              <p className="text-sm leading-relaxed text-zinc-600">{activePoint.description}</p>
+              <h3 className="text-base font-bold text-zinc-950">{activeRoute.title}</h3>
+              <p className="text-sm leading-relaxed text-zinc-600">{activeRoute.description}</p>
             </div>
 
-            <div className="space-y-2 border-t border-zinc-200 pt-4">
-              <p className="text-xs font-semibold text-zinc-500">Panduan Arah ke Booth:</p>
-              <ol className="space-y-2 text-sm text-zinc-700">
-                {activePoint.directions.map((step, idx) => (
+            <div className="space-y-2.5 border-t border-zinc-200 pt-4">
+              <p className="text-xs font-semibold text-zinc-500">Langkah Menuju Booth B-04:</p>
+              <ol className="space-y-2.5 text-sm text-zinc-700">
+                {activeRoute.directions.map((step, idx) => (
                   <li key={step} className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-orange-50 font-mono text-[11px] font-bold text-orange-700">
                       {idx + 1}
@@ -207,12 +358,87 @@ export function EventRadarSection() {
             href={STORE_INFO.mallMapsUrl}
             target="_blank"
             rel="noreferrer"
-            onClick={() => sfx.playClick()}
             className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-orange-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
           >
+            <Navigation className="h-4 w-4" />
             <span>Buka Rute Palembang Icon</span>
-            <ExternalLink className="h-4 w-4" />
+            <ExternalLink className="h-3.5 w-3.5" />
           </a>
+        </div>
+      </section>
+
+      {/* Ongoing, Upcoming & Past Events Section */}
+      <section className="space-y-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-zinc-950">Jadwal &amp; Arsip Pameran</h2>
+            <p className="text-sm text-zinc-600">
+              Pantau pameran yang sedang berjalan, agenda mendatang, dan dokumentasi event sebelumnya di Palembang.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {EVENT_FILTERS.map((filter) => {
+              const isActive = eventFilter === filter.id;
+              return (
+                <button
+                  key={filter.id}
+                  type="button"
+                  onClick={() => setEventFilter(filter.id)}
+                  className={`min-h-[40px] rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 ${
+                    isActive
+                      ? 'border-orange-300 bg-orange-50 text-orange-700'
+                      : 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-950'
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {filteredEvents.map((evt) => {
+            const badgeStyle =
+              evt.status === 'ongoing'
+                ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                : evt.status === 'upcoming'
+                  ? 'border-orange-200 bg-orange-50 text-orange-700'
+                  : 'border-zinc-200 bg-zinc-100 text-zinc-600';
+
+            return (
+              <article
+                key={evt.id}
+                className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white"
+              >
+                <div className="aspect-[16/9] w-full overflow-hidden border-b border-zinc-200 bg-zinc-100">
+                  <img src={evt.image} alt={evt.title} className="h-full w-full object-cover" />
+                </div>
+
+                <div className="flex flex-1 flex-col justify-between gap-4 p-5">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className={`rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-semibold ${badgeStyle}`}>
+                        {evt.statusLabel}
+                      </span>
+                      <span className="font-mono text-xs tabular-nums text-zinc-500">{evt.date}</span>
+                    </div>
+
+                    <h3 className="text-base font-bold text-zinc-950">{evt.title}</h3>
+                    <p className="text-xs font-medium text-zinc-600">
+                      {evt.mall} · <span className="text-zinc-900">{evt.booth}</span>
+                    </p>
+                    <p className="text-xs leading-relaxed text-zinc-500">{evt.highlight}</p>
+                  </div>
+
+                  <div className="border-t border-zinc-100 pt-3 font-mono text-[11px] tabular-nums text-zinc-500">
+                    Jam Operasional: {evt.hours}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
     </div>

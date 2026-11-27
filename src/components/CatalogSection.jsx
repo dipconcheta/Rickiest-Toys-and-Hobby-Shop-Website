@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { Search, Tag } from 'lucide-react';
 import { PRODUCTS, STORE_INFO } from '../data/mockData';
 import { WhatsAppLogo } from './BrandLogos';
-import { sfx } from '../utils/sfx';
 
 const CATEGORIES = [
   { id: 'all', label: 'Semua (12)' },
@@ -65,7 +64,6 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
                 key={cat.id}
                 type="button"
                 onClick={() => {
-                  sfx.playClick();
                   setSelectedCategory(cat.id);
                 }}
                 className={`min-h-[44px] rounded-lg border px-3.5 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
@@ -105,7 +103,6 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
           <button
             type="button"
             onClick={() => {
-              sfx.playClick();
               setSelectedCategory('all');
               setSearchQuery('');
             }}
@@ -152,7 +149,6 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
                   href={buildWhatsappUrl(product.name)}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => sfx.playClick()}
                   className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-emerald-500 hover:bg-emerald-50/50 hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
                 >
                   <WhatsAppLogo className="h-4 w-4" />
