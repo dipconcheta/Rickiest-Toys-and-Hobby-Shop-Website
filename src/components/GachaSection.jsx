@@ -14,7 +14,7 @@ function drawWeightedItem() {
 }
 
 export function GachaSection({ onNavigateCatalog }) {
-  const [phase, setPhase] = useState('idle'); // idle | shaking | revealed
+  const [phase, setPhase] = useState('idle');
   const [pulledItem, setPulledItem] = useState(null);
   const [pullCount, setPullCount] = useState(0);
   const [showOdds, setShowOdds] = useState(false);
@@ -31,7 +31,6 @@ export function GachaSection({ onNavigateCatalog }) {
     sfx.playClick();
     setPhase('shaking');
 
-    // Tactile shake ticks during anticipation
     [180, 420, 660, 900].forEach((ms) => {
       timersRef.current.push(setTimeout(() => sfx.playShakeTick(), ms));
     });
@@ -60,22 +59,21 @@ export function GachaSection({ onNavigateCatalog }) {
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
-      {/* Header */}
       <div className="space-y-2 text-center">
-        <span className="font-mono text-xs font-semibold uppercase tracking-wider text-amber-400">
+        <span className="font-mono text-xs font-semibold uppercase tracking-wider text-orange-600">
           Virtual Blind Box Simulator
         </span>
-        <h1 className="text-2xl font-extrabold tracking-tight text-slate-50 sm:text-3xl">
+        <h1 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl">
           Uji Keberuntungan Mystery Box
         </h1>
-        <p className="mx-auto max-w-prose text-sm text-slate-400">
+        <p className="mx-auto max-w-prose text-sm text-zinc-600">
           Rasakan simulasi membuka kotak segel Blokees lengkap dengan efek suara kemenangan dan peluang
           mendapatkan varian Secret Chase.
         </p>
       </div>
 
       {/* Main Interactive Stage */}
-      <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 sm:p-10">
+      <div className="rounded-xl border border-zinc-200 bg-white p-6 sm:p-10">
         {phase !== 'revealed' ? (
           <div className="flex flex-col items-center gap-6 text-center">
             <button
@@ -83,8 +81,10 @@ export function GachaSection({ onNavigateCatalog }) {
               onClick={handleOpenBox}
               disabled={phase === 'shaking'}
               aria-label="Klik kotak misteri untuk membuka"
-              className={`group relative overflow-hidden rounded-xl border border-slate-700 bg-[#020617] p-3 transition-colors duration-150 hover:border-amber-500/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 disabled:cursor-wait ${
-                phase === 'shaking' ? 'animate-box-rumble border-amber-500' : ''
+              className={`group relative overflow-hidden rounded-xl border bg-zinc-50 p-3 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 disabled:cursor-wait ${
+                phase === 'shaking'
+                  ? 'animate-box-rumble border-orange-500'
+                  : 'border-zinc-200 hover:border-orange-400'
               }`}
             >
               <img
@@ -99,13 +99,13 @@ export function GachaSection({ onNavigateCatalog }) {
                 type="button"
                 onClick={handleOpenBox}
                 disabled={phase === 'shaking'}
-                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-amber-500 px-6 py-2.5 text-sm font-semibold text-slate-950 transition-colors duration-150 hover:bg-amber-400 active:scale-[0.98] disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-orange-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-orange-700 active:scale-[0.98] disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
               >
                 <Sparkles className="h-4 w-4" />
                 <span>{phase === 'shaking' ? 'Membuka Segel...' : 'Buka Kotak Misteri'}</span>
               </button>
 
-              <p className="font-mono text-xs tabular-nums text-slate-400">
+              <p className="font-mono text-xs tabular-nums text-zinc-500">
                 Total percobaan sesi ini: {pullCount}
               </p>
             </div>
@@ -114,8 +114,8 @@ export function GachaSection({ onNavigateCatalog }) {
           <div className="animate-reveal-enter grid grid-cols-1 items-center gap-6 sm:grid-cols-12">
             <div className="sm:col-span-5">
               <div
-                className={`overflow-hidden rounded-xl border bg-[#020617] ${
-                  pulledItem.rarity === 'SECRET_CHASE' ? 'border-amber-500' : 'border-slate-700'
+                className={`overflow-hidden rounded-xl border bg-zinc-50 ${
+                  pulledItem.rarity === 'SECRET_CHASE' ? 'border-orange-500' : 'border-zinc-200'
                 }`}
               >
                 <img
@@ -131,29 +131,28 @@ export function GachaSection({ onNavigateCatalog }) {
                 <span
                   className={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-xs font-semibold ${
                     pulledItem.rarity === 'SECRET_CHASE'
-                      ? 'border-amber-500/40 bg-amber-500/15 text-amber-400'
-                      : 'border-slate-700 bg-slate-800 text-slate-300'
+                      ? 'border-orange-300 bg-orange-50 text-orange-700'
+                      : 'border-zinc-200 bg-zinc-100 text-zinc-700'
                   }`}
                 >
                   {pulledItem.rarityLabel}
                 </span>
-                <h2 className="text-xl font-bold text-slate-50">{pulledItem.characterName}</h2>
-                <p className="text-xs font-medium text-slate-400">{pulledItem.series}</p>
+                <h2 className="text-xl font-bold text-zinc-950">{pulledItem.characterName}</h2>
+                <p className="text-xs font-medium text-zinc-500">{pulledItem.series}</p>
               </div>
 
-              <p className="text-sm leading-relaxed text-slate-300">{pulledItem.description}</p>
+              <p className="text-sm leading-relaxed text-zinc-600">{pulledItem.description}</p>
 
-              {/* Tabular Stats */}
-              <div className="grid grid-cols-2 gap-3 border-y border-slate-800 py-3">
+              <div className="grid grid-cols-2 gap-3 border-y border-zinc-200 py-3">
                 <div>
-                  <span className="block text-xs text-slate-400">Power Rating</span>
-                  <span className="font-mono text-base font-semibold tabular-nums text-slate-50">
+                  <span className="block text-xs text-zinc-500">Power Rating</span>
+                  <span className="font-mono text-base font-bold tabular-nums text-zinc-950">
                     {pulledItem.powerStat} / 100
                   </span>
                 </div>
                 <div>
-                  <span className="block text-xs text-slate-400">Artikulasi Sendi</span>
-                  <span className="font-mono text-base font-semibold tabular-nums text-slate-50">
+                  <span className="block text-xs text-zinc-500">Artikulasi Sendi</span>
+                  <span className="font-mono text-base font-bold tabular-nums text-zinc-950">
                     {pulledItem.articulationJoints} Titik
                   </span>
                 </div>
@@ -163,7 +162,7 @@ export function GachaSection({ onNavigateCatalog }) {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-amber-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors duration-150 hover:bg-amber-400 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                  className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-orange-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
                 >
                   <RotateCcw className="h-4 w-4" />
                   <span>Buka Box Lainnya</span>
@@ -171,7 +170,7 @@ export function GachaSection({ onNavigateCatalog }) {
                 <button
                   type="button"
                   onClick={onNavigateCatalog}
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-slate-700 bg-[#020617] px-4 py-2.5 text-sm font-medium text-slate-200 transition-colors duration-150 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-800 transition-colors duration-150 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
                 >
                   Cek Stok Asli
                 </button>
@@ -182,7 +181,7 @@ export function GachaSection({ onNavigateCatalog }) {
       </div>
 
       {/* Progressive Disclosure: Odds & Drop List */}
-      <div className="rounded-xl border border-slate-800 bg-slate-900">
+      <div className="rounded-xl border border-zinc-200 bg-white">
         <button
           type="button"
           onClick={() => {
@@ -190,21 +189,21 @@ export function GachaSection({ onNavigateCatalog }) {
             setShowOdds((prev) => !prev);
           }}
           aria-expanded={showOdds}
-          className="flex min-h-[48px] w-full items-center justify-between px-5 py-3 text-left text-sm font-medium text-slate-200 transition-colors duration-150 hover:text-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+          className="flex min-h-[48px] w-full items-center justify-between px-5 py-3 text-left text-sm font-semibold text-zinc-800 transition-colors duration-150 hover:text-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
         >
           <span>Daftar Karakter &amp; Peluang Kemunculan</span>
           {showOdds ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </button>
 
         {showOdds && (
-          <div className="divide-y divide-slate-800 border-t border-slate-800 px-5">
+          <div className="divide-y divide-zinc-200 border-t border-zinc-200 px-5">
             {MYSTERY_POOL.map((item) => (
               <div key={item.id} className="flex items-center justify-between gap-4 py-3 text-sm">
                 <div className="min-w-0">
-                  <p className="truncate font-medium text-slate-100">{item.characterName}</p>
-                  <p className="truncate text-xs text-slate-400">{item.series}</p>
+                  <p className="truncate font-semibold text-zinc-900">{item.characterName}</p>
+                  <p className="truncate text-xs text-zinc-500">{item.series}</p>
                 </div>
-                <span className="shrink-0 font-mono text-xs tabular-nums text-amber-400">
+                <span className="shrink-0 font-mono text-xs font-semibold tabular-nums text-orange-600">
                   {item.rarityLabel}
                 </span>
               </div>

@@ -9,8 +9,8 @@
   html,
   body {
     font-family: var(--font-sans);
-    background-color: #020617;
-    color: #F8FAFC;
+    background-color: #FAFAFA;
+    color: #09090B;
     overflow-x: hidden;
   }
 

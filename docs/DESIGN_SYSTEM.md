@@ -28,24 +28,22 @@ This document establishes the UI design standards, token architecture, and UX co
 
 ## 2. Visual Design Standards (Tokens & Hierarchy)
 
-### Color System (60-30-10 Rule)
-* **60% Neutral Canvas:**
-  * Background Canvas: `#020617` (Deep Obsidian / Slate 950)
-  * Elevated Card Surface: `#0F172A` (Slate 900)
-  * Elevated Hover Surface: `#1E293B` (Slate 800)
-  * Hairline Borders: `#1E293B` (Slate 800) and `#334155` (Slate 700)
+### Color System (60-30-10 Rule — Bright Toy Store Light Theme)
+* **60% Neutral Light Canvas:**
+  * Background Canvas: `#FAFAFA` (Zinc 50)
+  * Elevated Card Surface: `#FFFFFF` (Pure White)
+  * Subtle Surface / Pill / Input: `#F4F4F5` (Zinc 100)
+  * Hairline Borders: `#E4E4E7` (Zinc 200) and `#D4D4D8` (Zinc 300)
 * **30% Typography & Structural Neutral:**
-  * Primary Text: `#F8FAFC` (Slate 50)
-  * Secondary Text: `#94A3B8` (Slate 400)
-  * Muted / Meta Text: `#64748B` (Slate 500)
+  * Primary Text: `#09090B` (Zinc 950)
+  * Secondary Text: `#52525B` (Zinc 600)
+  * Muted / Meta Text: `#71717A` (Zinc 500)
 * **10% Brand Accent (Single Accent Rule):**
-  * Brand Primary: `#F59E0B` (Amber 500 - representing the energetic collectible hobby culture of Rickiest Toys)
-  * Brand Hover / Active: `#D97706` (Amber 600)
-  * Brand Subtle Surface: `rgba(245, 158, 11, 0.12)` (Amber 500 at 12% opacity with 1px border)
-* **Semantic States:**
-  * Success / Available: `#10B981` (Emerald 500)
-  * Warning / Rare: `#F59E0B` (Amber 500)
-  * Interactive Info: `#3B82F6` (Blue 500)
+  * Brand Primary: `#EA580C` (Orange 600 — bright, energetic toy & hobby retail accent, WCAG AA compliant with white text)
+  * Brand Hover / Active: `#C2410C` (Orange 700)
+  * Brand Subtle Surface: `#FFF7ED` (Orange 50) with border `#FDBA74` (Orange 300)
+* **Official Marketplace & Social Brand Marks:**
+  * WhatsApp `#25D366`, Tokopedia `#03AC0E`, Shopee `#EE4D2D`, Facebook `#1877F2` (used strictly inside their official logo marks).
 
 ### Typography Hierarchy
 * **Font Family:** Modern Sans-Serif (`Inter`, `Plus Jakarta Sans`, or system `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto`) paired with `JetBrains Mono` for IDs, prices, and metrics.
