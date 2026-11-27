@@ -85,7 +85,7 @@ export function FacebookLogo({ className = 'h-5 w-5' }) {
 
 /**
  * Rickiest Toys & Hobby Store Logo
- * Automatically renders `/images/rickiest-logo.png` when provided, with crisp fallback mark.
+ * Renders the real store logo downloaded from Facebook (`/images/rickiest-logo.jpg`).
  */
 export function RickiestLogo({ className = 'h-10 w-10' }) {
   const [imgFailed, setImgFailed] = useState(false);
@@ -93,10 +93,10 @@ export function RickiestLogo({ className = 'h-10 w-10' }) {
   if (!imgFailed) {
     return (
       <img
-        src="/images/rickiest-logo.png"
+        src="/images/rickiest-logo.jpg"
         alt="Logo Rickiest Toys & Hobby Shop Palembang"
         onError={() => setImgFailed(true)}
-        className={`${className} rounded-lg border border-zinc-200 bg-white object-cover`}
+        className={`${className} shrink-0 rounded-lg border border-zinc-200 bg-white object-cover`}
       />
     );
   }
@@ -108,5 +108,17 @@ export function RickiestLogo({ className = 'h-10 w-10' }) {
     >
       <span className="text-sm">RT</span>
     </div>
+  );
+}
+
+/** Official Instagram Brand Icon */
+export function InstagramLogo({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" className={className} aria-hidden="true">
+      <rect width="48" height="48" rx="10" fill="#E1306C" />
+      <rect x="12" y="12" width="24" height="24" rx="7" stroke="#FFFFFF" strokeWidth="2.6" />
+      <circle cx="24" cy="24" r="5.5" stroke="#FFFFFF" strokeWidth="2.6" />
+      <circle cx="30.8" cy="17.2" r="1.6" fill="#FFFFFF" />
+    </svg>
   );
 }

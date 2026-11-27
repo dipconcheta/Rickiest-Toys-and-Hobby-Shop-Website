@@ -1,67 +1,18 @@
-import { useEffect, useState } from 'react';
-import { ArrowRight, MapPin, Pause, Play, RotateCcw } from 'lucide-react';
-import { HOBBY_PILLARS, STORE_INFO } from '../data/mockData';
-
-const VIDEO_CHAPTERS = [
-  {
-    time: 0,
-    label: '00:00',
-    title: 'Flagship Store 18 Ilir',
-    caption: 'Etalase koleksi Gunpla, Blokees, dan ruang komunitas di Jl. AKBP H.M. Amin.',
-    image: '/images/hero-showcase.jpg',
-  },
-  {
-    time: 15,
-    label: '00:15',
-    title: 'Blind Box & Model Kit Wall',
-    caption: 'Ratusan pilihan kotak misteri segel pabrik dengan peluang varian Secret Chase.',
-    image: '/images/prod-blokees.jpg',
-  },
-  {
-    time: 30,
-    label: '00:30',
-    title: 'Pop-Up Exhibition Palembang Icon',
-    caption: 'Suasana pameran mall di Main Atrium, display diorama, dan komunitas TCG Palembang.',
-    image: '/images/prod-gunpla.jpg',
-  },
-];
+import { useState } from 'react';
+import { ArrowRight, ExternalLink, MapPin, Play } from 'lucide-react';
+import { FACEBOOK_VIDEOS, HOBBY_PILLARS, STORE_INFO } from '../data/mockData';
 
 export function IntroSection({ onNavigate }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [elapsed, setElapsed] = useState(0);
+  const [selectedVideoId, setSelectedVideoId] = useState(FACEBOOK_VIDEOS[0].id);
+  const [showEmbed, setShowEmbed] = useState(false);
 
-  useEffect(() => {
-    if (!isPlaying) return undefined;
-    const timer = setInterval(() => {
-      setElapsed((prev) => {
-        if (prev >= 45) {
-          setIsPlaying(false);
-          return 45;
-        }
-        return prev + 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [isPlaying]);
+  const activeVideo =
+    FACEBOOK_VIDEOS.find((v) => v.id === selectedVideoId) || FACEBOOK_VIDEOS[0];
 
-  const activeChapter =
-    elapsed >= 30 ? VIDEO_CHAPTERS[2] : elapsed >= 15 ? VIDEO_CHAPTERS[1] : VIDEO_CHAPTERS[0];
-
-  const handleTogglePlay = () => {
-    if (elapsed >= 45) {
-      setElapsed(0);
-      setIsPlaying(true);
-      return;
-    }
-    setIsPlaying((prev) => !prev);
+  const handleSelectVideo = (videoId) => {
+    setSelectedVideoId(videoId);
+    setShowEmbed(false);
   };
-
-  const handleRestart = () => {
-    setElapsed(0);
-    setIsPlaying(true);
-  };
-
-  const formatTime = (sec) => `00:${String(sec).padStart(2, '0')}`;
 
   return (
     <div className="space-y-12">
@@ -70,17 +21,17 @@ export function IntroSection({ onNavigate }) {
         <div className="min-w-0 space-y-5 lg:col-span-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
             <MapPin className="h-3.5 w-3.5" />
-            <span>18 Ilir, Palembang · Booth B-04 Palembang Icon</span>
+            <span>18 Ilir Palembang · 100% Direkomendasikan</span>
           </div>
 
           <h1 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl lg:text-[42px] lg:leading-[1.12]">
-            Pusat Hobi, Blind Box &amp; Pop Culture Terlengkap di Palembang.
+            Pusat Hobi, Model Kit, Blind Box &amp; Card Game di Palembang.
           </h1>
 
           <p className="max-w-prose text-sm leading-relaxed text-zinc-600 sm:text-base">
-            Jelajahi koleksi resmi <strong className="font-semibold text-zinc-900">{STORE_INFO.name}</strong>—mulai
-            dari Blokees, Bandai Gunpla, Art Toys Blind Box, hingga turnamen Trading Card Game. Coba simulasi unboxing
-            atau cek lokasi booth pameran mall kami.
+            Selamat datang di <strong className="font-semibold text-zinc-900">{STORE_INFO.name}</strong>.
+            Temukan koleksi resmi Blokees, Bandai Gunpla, Blind Box, dan komunitas turnamen mingguan
+            Pokémon, One Piece, Ultraman, serta Yu-Gi-Oh! di Palembang.
           </p>
 
           <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
@@ -97,22 +48,24 @@ export function IntroSection({ onNavigate }) {
               onClick={() => onNavigate('radar')}
               className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-800 transition-colors duration-150 hover:border-zinc-400 hover:bg-zinc-50 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
             >
-              <span>Lokasi Pameran Mall</span>
+              <span>Denah &amp; Jadwal Pameran</span>
             </button>
           </div>
         </div>
 
-        {/* Hero Visual */}
+        {/* Hero Visual (Real Store Cover + Studio Showcase) */}
         <div className="min-w-0 lg:col-span-5">
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
             <img
-              src="/images/hero-showcase.jpg"
-              alt="Koleksi figur Blokees, Gunpla, dan blind box di Rickiest Toys Palembang"
+              src="/images/fb/fb-cover.jpg"
+              alt="Rickiest Toys and Hobby Shop Palembang Cover"
               className="aspect-[16/10] w-full object-cover"
             />
             <div className="flex items-center justify-between border-t border-zinc-200 px-4 py-3 text-xs">
-              <span className="font-semibold text-zinc-800">Produk Original &amp; Segel Pabrik</span>
-              <span className="font-mono font-semibold text-orange-600">EST. PALEMBANG</span>
+              <span className="truncate font-semibold text-zinc-800">
+                Card Game · Board Game · Model Kit
+              </span>
+              <span className="shrink-0 font-mono font-semibold text-orange-600">PALEMBANG</span>
             </div>
           </div>
         </div>
@@ -122,7 +75,9 @@ export function IntroSection({ onNavigate }) {
       <section className="space-y-4">
         <div>
           <h2 className="text-lg font-bold text-zinc-950 sm:text-xl">Tiga Pilar Koleksi</h2>
-          <p className="text-sm text-zinc-600">Lini produk unggulan di toko 18 Ilir dan booth pameran mall.</p>
+          <p className="text-sm text-zinc-600">
+            Lini produk unggulan di toko 18 Ilir dan booth pameran mall Palembang.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -151,87 +106,86 @@ export function IntroSection({ onNavigate }) {
         </div>
       </section>
 
-      {/* Interactive Video Showcase Reel */}
+      {/* Real Facebook Videos & Reels Showcase */}
       <section className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-12">
-          <div className="relative aspect-video bg-zinc-900 lg:col-span-7">
-            <img
-              src={activeChapter.image}
-              alt={activeChapter.title}
-              className={`h-full w-full object-cover transition-opacity duration-200 ${
-                isPlaying ? 'opacity-95' : 'opacity-80'
-              }`}
-            />
-            <div className="absolute inset-x-0 bottom-0 border-t border-zinc-800 bg-zinc-950/90 px-4 py-3 text-white">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
+          <div className="relative aspect-video bg-zinc-950 lg:col-span-7">
+            {showEmbed ? (
+              <iframe
+                title={activeVideo.title}
+                src={activeVideo.embedUrl}
+                className="h-full w-full border-0"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <div className="relative h-full w-full">
+                <img
+                  src={activeVideo.thumbnail}
+                  alt={activeVideo.title}
+                  className="h-full w-full object-cover opacity-85"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/35">
                   <button
                     type="button"
-                    onClick={handleTogglePlay}
-                    aria-label={isPlaying ? 'Jeda video teaser' : 'Putar video teaser'}
-                    className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-600 text-white transition-colors duration-150 hover:bg-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                    onClick={() => setShowEmbed(true)}
+                    aria-label={`Putar video ${activeVideo.title}`}
+                    className="inline-flex min-h-[52px] items-center gap-2.5 rounded-full bg-orange-600 px-6 py-3 text-sm font-bold text-white transition-colors duration-150 hover:bg-orange-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                   >
-                    {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleRestart}
-                    aria-label="Ulangi dari awal"
-                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-200 transition-colors duration-150 hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
-                  >
-                    <RotateCcw className="h-4 w-4" />
+                    <Play className="h-4 w-4 fill-current" />
+                    <span>Putar Video Facebook</span>
                   </button>
                 </div>
-
-                <div className="min-w-0 flex-1">
-                  <div className="mb-1.5 flex items-center justify-between text-xs">
-                    <span className="truncate font-medium text-zinc-100">{activeChapter.title}</span>
-                    <span className="shrink-0 font-mono tabular-nums text-zinc-400">
-                      {formatTime(elapsed)} / 00:45
+                <div className="absolute inset-x-0 bottom-0 bg-zinc-950/85 px-4 py-2.5 text-xs text-zinc-200">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="truncate font-semibold">{activeVideo.title}</span>
+                    <span className="shrink-0 font-mono text-[11px] text-zinc-400">
+                      {activeVideo.duration}
                     </span>
-                  </div>
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
-                    <div
-                      className="h-full bg-orange-500 transition-all duration-300"
-                      style={{ width: `${(elapsed / 45) * 100}%` }}
-                    />
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="flex flex-col justify-between gap-6 p-6 lg:col-span-5">
             <div className="space-y-3">
               <span className="inline-block font-mono text-xs font-semibold uppercase tracking-wider text-orange-600">
-                Video Showcase · 45 Detik
+                Video Asli Facebook · @TheRickiest
               </span>
-              <h2 className="text-xl font-bold text-zinc-950">
-                Suasana Toko 18 Ilir &amp; Pameran Mall
-              </h2>
-              <p className="text-sm leading-relaxed text-zinc-600">{activeChapter.caption}</p>
+              <h2 className="text-xl font-bold text-zinc-950">{activeVideo.title}</h2>
+              <p className="text-sm leading-relaxed text-zinc-600">{activeVideo.caption}</p>
+              <a
+                href={activeVideo.facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-[40px] items-center gap-1.5 text-xs font-semibold text-orange-700 hover:text-orange-800"
+              >
+                <span>Buka langsung di Facebook</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             </div>
 
             <div className="space-y-2 border-t border-zinc-200 pt-4">
-              <p className="text-xs font-semibold text-zinc-500">Pilih segmen cuplikan:</p>
-              <div className="flex flex-wrap gap-2">
-                {VIDEO_CHAPTERS.map((chap) => {
-                  const isCurrent = activeChapter.time === chap.time;
+              <p className="text-xs font-semibold text-zinc-500">Pilih video dokumentasi:</p>
+              <div className="flex flex-col gap-2">
+                {FACEBOOK_VIDEOS.map((vid) => {
+                  const isCurrent = vid.id === activeVideo.id;
                   return (
                     <button
-                      key={chap.time}
+                      key={vid.id}
                       type="button"
-                      onClick={() => {
-                        setElapsed(chap.time);
-                        setIsPlaying(true);
-                      }}
-                      className={`min-h-[44px] rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600 ${
+                      onClick={() => handleSelectVideo(vid.id)}
+                      className={`flex min-h-[44px] items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition-colors duration-150 ${
                         isCurrent
                           ? 'border-orange-300 bg-orange-50 text-orange-700'
-                          : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-zinc-300 hover:text-zinc-950'
+                          : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300 hover:text-zinc-950'
                       }`}
                     >
-                      <span className="font-mono">{chap.label}</span>
+                      <span className="truncate">{vid.title}</span>
+                      <span className="shrink-0 font-mono text-[10px] text-zinc-500">
+                        {vid.duration.split('·')[0]}
+                      </span>
                     </button>
                   );
                 })}
