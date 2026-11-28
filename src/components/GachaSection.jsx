@@ -1,4 +1,4 @@
-﻿import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp, RotateCcw, Sparkles } from 'lucide-react';
 import { MYSTERY_POOL } from '../data/mockData';
 import { sfx } from '../utils/sfx';
@@ -24,6 +24,10 @@ export function GachaSection({ onNavigateCatalog }) {
     timersRef.current.forEach((id) => clearTimeout(id));
     timersRef.current = [];
   };
+
+  useEffect(() => {
+    return () => clearTimers();
+  }, []);
 
   const handleOpenBox = () => {
     if (phase === 'shaking') return;
@@ -72,7 +76,7 @@ export function GachaSection({ onNavigateCatalog }) {
       </div>
 
       {/* Main Interactive Stage */}
-      <div className="rounded-xl border border-zinc-200 bg-white p-6 sm:p-10">
+      <div className="rounded-xl border border-zinc-200 bg-white p-5 sm:p-8">
         {phase !== 'revealed' ? (
           <div className="flex flex-col items-center gap-6 text-center">
             <button

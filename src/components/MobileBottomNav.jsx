@@ -1,8 +1,8 @@
-﻿export function MobileBottomNav({ tabs, activeTab, onTabChange }) {
+export function MobileBottomNav({ tabs, activeTab, onTabChange }) {
   return (
     <nav
       aria-label="Navigasi seluler"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-200 bg-white/95 backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
     >
       <div className="grid grid-cols-4 gap-1 px-2 py-1.5">
         {tabs.map((tab) => {
@@ -12,13 +12,14 @@
             <button
               key={tab.id}
               type="button"
+              aria-current={isActive ? 'page' : undefined}
               onClick={() => onTabChange(tab.id)}
-              className={`flex min-h-[48px] flex-col items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[11px] font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
+              className={`flex min-h-[48px] min-w-0 flex-col items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[11px] font-semibold leading-none transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
                 isActive ? 'bg-red-50 text-red-700' : 'text-zinc-500 hover:text-zinc-900'
               }`}
             >
-              <Icon className="h-4 w-4" />
-              <span className="truncate">{tab.shortLabel}</span>
+              <Icon className="h-4 w-4 shrink-0" />
+              <span className="max-w-full truncate">{tab.label}</span>
             </button>
           );
         })}

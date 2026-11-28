@@ -39,6 +39,9 @@ This document establishes the UI design standards, token architecture, and UX co
   * Secondary Text: `#52525B` (Zinc 600)
   * Muted / Meta Text: `#71717A` (Zinc 500)
 * **10% Brand Accent (Single Accent Rule):**
+  * Brand Primary: `#DC2626` (Orange 600 — bright, energetic toy & hobby retail accent, WCAG AA compliant with white text)
+  * Brand Hover / Active: `#B91C1C` (Orange 700)
+  * Brand Subtle Surface: `#FEF2F2` (Orange 50) with border `#FCA5A5` (Orange 300)
   * Brand Primary: `#DC2626` (Red 600 — matching Rickiest Toys' crimson emblem, WCAG AA compliant with white text)
   * Brand Hover / Active: `#B91C1C` (Red 700)
   * Brand Subtle Surface: `#FEF2F2` (Red 50) with border `#FCA5A5` (Red 300)

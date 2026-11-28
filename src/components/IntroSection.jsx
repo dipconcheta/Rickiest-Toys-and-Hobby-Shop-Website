@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, ExternalLink, MapPin, Play } from 'lucide-react';
 import { FACEBOOK_VIDEOS, HOBBY_PILLARS, STORE_INFO } from '../data/mockData';
 
@@ -15,9 +15,9 @@ export function IntroSection({ onNavigate }) {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-10 sm:space-y-12">
       {/* Hero Section */}
-      <section className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+      <section className="grid grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-12">
         <div className="min-w-0 space-y-5 lg:col-span-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">
             <MapPin className="h-3.5 w-3.5" />
@@ -109,7 +109,7 @@ export function IntroSection({ onNavigate }) {
       {/* Real Facebook Videos & Reels Showcase */}
       <section className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-12">
-          <div className="relative aspect-video bg-zinc-950 lg:col-span-7">
+          <div className="relative aspect-video bg-zinc-950 lg:col-span-7 lg:aspect-auto lg:min-h-[360px]">
             {showEmbed ? (
               <iframe
                 title={activeVideo.title}
@@ -125,12 +125,12 @@ export function IntroSection({ onNavigate }) {
                   alt={activeVideo.title}
                   className="h-full w-full object-cover opacity-85"
                 />
-                <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/35">
+                <div className="absolute inset-0 flex items-center justify-center bg-zinc-950/35 p-4">
                   <button
                     type="button"
                     onClick={() => setShowEmbed(true)}
                     aria-label={`Putar video ${activeVideo.title}`}
-                    className="inline-flex min-h-[52px] items-center gap-2.5 rounded-full bg-red-600 px-6 py-3 text-sm font-bold text-white transition-colors duration-150 hover:bg-red-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-red-600 px-5 py-2.5 text-xs font-bold text-white transition-colors duration-150 hover:bg-red-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:min-h-[52px] sm:px-6 sm:text-sm"
                   >
                     <Play className="h-4 w-4 fill-current" />
                     <span>Putar Video Facebook</span>
@@ -148,18 +148,18 @@ export function IntroSection({ onNavigate }) {
             )}
           </div>
 
-          <div className="flex flex-col justify-between gap-6 p-6 lg:col-span-5">
+          <div className="flex min-w-0 flex-col justify-between gap-5 p-4 sm:p-6 lg:col-span-5">
             <div className="space-y-3">
               <span className="inline-block font-mono text-xs font-semibold uppercase tracking-wider text-red-600">
                 Video Asli Facebook · @TheRickiest
               </span>
-              <h2 className="text-xl font-bold text-zinc-950">{activeVideo.title}</h2>
+              <h2 className="text-lg font-bold text-zinc-950 sm:text-xl">{activeVideo.title}</h2>
               <p className="text-sm leading-relaxed text-zinc-600">{activeVideo.caption}</p>
               <a
                 href={activeVideo.facebookUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-[40px] items-center gap-1.5 text-xs font-semibold text-red-700 hover:text-red-800"
+                className="inline-flex min-h-[44px] items-center gap-1.5 text-xs font-semibold text-red-700 hover:text-red-800"
               >
                 <span>Buka langsung di Facebook</span>
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -176,7 +176,7 @@ export function IntroSection({ onNavigate }) {
                       key={vid.id}
                       type="button"
                       onClick={() => handleSelectVideo(vid.id)}
-                      className={`flex min-h-[44px] items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition-colors duration-150 ${
+                      className={`flex min-h-[44px] min-w-0 items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
                         isCurrent
                           ? 'border-red-300 bg-red-50 text-red-700'
                           : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300 hover:text-zinc-950'
@@ -184,7 +184,7 @@ export function IntroSection({ onNavigate }) {
                     >
                       <span className="truncate">{vid.title}</span>
                       <span className="shrink-0 font-mono text-[10px] text-zinc-500">
-                        {vid.duration.split('·')[0]}
+                        {vid.duration.split('·')[0].trim()}
                       </span>
                     </button>
                   );

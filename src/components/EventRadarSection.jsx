@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Calendar, Clock, ExternalLink, Footprints, Images, MapPin, Navigation, X } from 'lucide-react';
 import { ACTIVE_EVENT, EXHIBITION_EVENTS, STORE_INFO, WEEKLY_TOURNAMENTS } from '../data/mockData';
 
@@ -14,6 +14,15 @@ export function EventRadarSection() {
   const [eventFilter, setEventFilter] = useState('all');
   const [lightboxImage, setLightboxImage] = useState(null);
 
+  useEffect(() => {
+    if (!lightboxImage) return;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setLightboxImage(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [lightboxImage]);
+
   const activeRoute =
     ACTIVE_EVENT.routes.find((r) => r.id === selectedRouteId) || ACTIVE_EVENT.routes[0];
 
@@ -23,9 +32,9 @@ export function EventRadarSection() {
       : EXHIBITION_EVENTS.filter((evt) => evt.status === eventFilter);
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-10 sm:space-y-12">
       {/* Live Event Banner */}
-      <section className="rounded-xl border border-zinc-200 bg-white p-6">
+      <section className="rounded-xl border border-zinc-200 bg-white p-4 sm:p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="min-w-0 space-y-2">
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 font-mono text-xs font-semibold text-emerald-700">
@@ -59,10 +68,10 @@ export function EventRadarSection() {
       </section>
 
       {/* Complex Architectural SVG Mall Wayfinding Map */}
-      <section className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        <div className="rounded-xl border border-zinc-200 bg-white p-5 lg:col-span-8">
+      <section className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-12">
+        <div className="min-w-0 rounded-xl border border-zinc-200 bg-white p-4 sm:p-5 lg:col-span-8">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <div>
+            <div className="min-w-0">
               <h2 className="text-sm font-bold text-zinc-950">
                 Peta Interaktif Lantai Ground (GF) — Palembang Icon
               </h2>
@@ -71,7 +80,7 @@ export function EventRadarSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {ACTIVE_EVENT.routes.map((route) => {
                 const isSelected = route.id === selectedRouteId;
                 return (
@@ -79,7 +88,7 @@ export function EventRadarSection() {
                     key={route.id}
                     type="button"
                     onClick={() => setSelectedRouteId(route.id)}
-                    className={`min-h-[36px] rounded-lg border px-2.5 text-xs font-semibold transition-colors duration-150 ${
+                    className={`min-h-[44px] rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
                       isSelected
                         ? 'border-red-400 bg-red-50 text-red-700'
                         : 'border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-zinc-300 hover:text-zinc-900'
@@ -301,7 +310,7 @@ export function EventRadarSection() {
         </div>
 
         {/* Route Details & Directions Card */}
-        <div className="flex flex-col justify-between gap-6 rounded-xl border border-zinc-200 bg-white p-6 lg:col-span-4">
+        <div className="flex min-w-0 flex-col justify-between gap-6 rounded-xl border border-zinc-200 bg-white p-4 sm:p-6 lg:col-span-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-2">
               <span className="font-mono text-xs font-bold text-red-600">{activeRoute.code}</span>
@@ -362,7 +371,7 @@ export function EventRadarSection() {
                   key={filter.id}
                   type="button"
                   onClick={() => setEventFilter(filter.id)}
-                  className={`min-h-[40px] rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 ${
+                  className={`min-h-[44px] rounded-lg border px-3 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 ${
                     isActive
                       ? 'border-red-300 bg-red-50 text-red-700'
                       : 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-950'
@@ -448,8 +457,8 @@ export function EventRadarSection() {
       </section>
 
       {/* Weekly In-Store Tournament Schedule (Real from Facebook) */}
-      <section className="rounded-xl border border-zinc-200 bg-white p-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <section className="rounded-xl border border-zinc-200 bg-white p-4 sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-base font-bold text-zinc-950">Jadwal Turnamen Mingguan di Toko (18 Ilir)</h2>
             <p className="text-xs text-zinc-500">
@@ -462,7 +471,7 @@ export function EventRadarSection() {
             )}`}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex min-h-[40px] items-center justify-center rounded-lg border border-zinc-300 bg-white px-3.5 text-xs font-semibold text-zinc-800 hover:border-red-400 hover:text-red-700"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-zinc-300 bg-white px-4 text-xs font-semibold text-zinc-800 transition-colors duration-150 hover:border-red-400 hover:text-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
           >
             Daftar via WhatsApp CP
           </a>
@@ -497,7 +506,7 @@ export function EventRadarSection() {
               type="button"
               onClick={() => setLightboxImage(null)}
               aria-label="Tutup foto"
-              className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-950/80 text-white hover:bg-zinc-900"
+              className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-lg bg-zinc-950/80 text-white transition-colors hover:bg-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               <X className="h-5 w-5" />
             </button>
