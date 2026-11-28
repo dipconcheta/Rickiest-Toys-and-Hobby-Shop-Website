@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Gift, Home, MapPin, ShoppingBag } from 'lucide-react';
 import { Header } from './components/Header';
 import { MobileBottomNav } from './components/MobileBottomNav';
@@ -7,7 +7,6 @@ import { GachaSection } from './components/GachaSection';
 import { EventRadarSection } from './components/EventRadarSection';
 import { CatalogSection } from './components/CatalogSection';
 import { StoreContactFooter } from './components/StoreContactFooter';
-import { STORE_INFO } from './data/mockData';
 
 const TABS = [
   { id: 'intro', label: 'Beranda', icon: Home },
@@ -19,14 +18,6 @@ const TABS = [
 export default function App() {
   const [activeTab, setActiveTab] = useState('intro');
   const [catalogCategory, setCatalogCategory] = useState('all');
-  const [toastMessage, setToastMessage] = useState('');
-  const toastTimerRef = useRef(null);
-
-  useEffect(() => {
-    return () => {
-      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-    };
-  }, []);
 
   const handleTabChange = (tabId, categorySlug) => {
     if (categorySlug) {
@@ -34,15 +25,6 @@ export default function App() {
     }
     setActiveTab(tabId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleCopyVoucher = () => {
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(STORE_INFO.voucherCode).catch(() => {});
-    }
-    setToastMessage(`Kode voucher ${STORE_INFO.voucherCode} disalin untuk Booth B-04 Palembang Icon.`);
-    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-    toastTimerRef.current = setTimeout(() => setToastMessage(''), 3000);
   };
 
   return (
@@ -59,24 +41,12 @@ export default function App() {
           <CatalogSection
             key={catalogCategory}
             initialCategory={catalogCategory}
-            onCopyVoucher={handleCopyVoucher}
           />
         )}
       </main>
 
       <StoreContactFooter />
       <MobileBottomNav tabs={TABS} activeTab={activeTab} onTabChange={handleTabChange} />
-
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="fixed bottom-20 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-lg border border-red-300 bg-zinc-950 px-4 py-3 text-center text-xs font-medium text-white md:bottom-6"
-        >
-          {toastMessage}
-        </div>
-      )}
     </div>
   );
 }

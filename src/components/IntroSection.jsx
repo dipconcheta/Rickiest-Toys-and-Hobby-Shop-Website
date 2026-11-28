@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, ExternalLink, MapPin, Play } from 'lucide-react';
+import { ArrowRight, ExternalLink, Play } from 'lucide-react';
 import { FACEBOOK_VIDEOS, HOBBY_PILLARS, STORE_INFO } from '../data/mockData';
 
 export function IntroSection({ onNavigate }) {
@@ -19,11 +19,6 @@ export function IntroSection({ onNavigate }) {
       {/* Hero Section */}
       <section className="grid grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-12">
         <div className="min-w-0 space-y-5 lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">
-            <MapPin className="h-3.5 w-3.5" />
-            <span>18 Ilir Palembang · 100% Direkomendasikan</span>
-          </div>
-
           <h1 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl lg:text-[42px] lg:leading-[1.12]">
             Pusat Hobi, Model Kit, Blind Box &amp; Card Game di Palembang.
           </h1>
@@ -71,12 +66,12 @@ export function IntroSection({ onNavigate }) {
         </div>
       </section>
 
-      {/* 3 Pillars Grid */}
+      {/* Koleksi Unggulan Grid */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-lg font-bold text-zinc-950 sm:text-xl">Tiga Pilar Koleksi</h2>
+          <h2 className="text-lg font-bold text-zinc-950 sm:text-xl">Koleksi Unggulan</h2>
           <p className="text-sm text-zinc-600">
-            Lini produk unggulan di toko 18 Ilir dan booth pameran mall Palembang.
+            Lini produk unggulan di toko fisik dan booth pameran mall Palembang.
           </p>
         </div>
 

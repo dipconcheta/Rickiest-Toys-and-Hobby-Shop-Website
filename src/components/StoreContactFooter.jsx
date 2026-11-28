@@ -117,9 +117,8 @@ export function StoreContactFooter() {
                         {name}
                       </p>
                       <p
-                        className={`truncate text-[11px] text-zinc-500 ${
-                          mono ? 'font-mono tabular-nums' : ''
-                        }`}
+                        className={`truncate text-[11px] text-zinc-500 ${mono ? 'font-mono tabular-nums' : ''
+                          }`}
                       >
                         {handle}
                       </p>
@@ -132,7 +131,7 @@ export function StoreContactFooter() {
           </div>
         </div>
 
-        <div className="border-t border-zinc-200 pt-4 text-center text-xs text-zinc-500 sm:text-left">
+        <div className="border-t border-zinc-200 pt-4 text-center text-xs text-zinc-500">
           <p>© 2026 Rickiest Toys Palembang.</p>
         </div>
       </div>

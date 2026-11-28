@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Search, Tag } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { PRODUCTS, STORE_INFO } from '../data/mockData';
 import { TokopediaLogo, WhatsAppLogo } from './BrandLogos';
 
@@ -10,7 +10,7 @@ const CATEGORIES = [
   { id: 'tcg', label: 'Official TCG' },
 ];
 
-export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
+export function CatalogSection({ initialCategory = 'all' }) {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -27,31 +27,20 @@ export function CatalogSection({ initialCategory = 'all', onCopyVoucher }) {
   }, [selectedCategory, searchQuery]);
 
   const buildWhatsappUrl = (productName) => {
-    const message = `Halo Rickiest Toys Palembang, saya ingin membeli ${productName} (Kode promo: ${STORE_INFO.voucherCode}). Apakah stok tersedia?`;
+    const message = `Halo Rickiest Toys Palembang, saya ingin membeli ${productName}. Apakah stok tersedia?`;
     return `https://wa.me/${STORE_INFO.whatsappNumber}?text=${encodeURIComponent(message)}`;
   };
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Header & Single Primary CTA */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="min-w-0 space-y-1">
-          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl">
-            Katalog Produk ({PRODUCTS.length} Item)
-          </h1>
-          <p className="max-w-prose text-sm text-zinc-600">
-            Koleksi resmi dari etalase Tokopedia Rickiest Toys Palembang. Pesan langsung via WhatsApp atau Tokopedia.
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={onCopyVoucher}
-          className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-red-700 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
-        >
-          <Tag className="h-4 w-4" />
-          <span>Salin Voucher Pameran</span>
-        </button>
+      {/* Header */}
+      <div className="min-w-0 space-y-1">
+        <h1 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl">
+          Katalog Produk ({PRODUCTS.length} Item)
+        </h1>
+        <p className="max-w-prose text-sm text-zinc-600">
+          Koleksi resmi dari etalase Tokopedia Rickiest Toys Palembang. Pesan langsung via WhatsApp atau Tokopedia.
+        </p>
       </div>
 
       {/* Filter Toolbar */}
